@@ -34,6 +34,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 const index = require("./routes/index");
+const Movie = require("./models/Movie");
 app.use("/", index);
+
+const movies = require("./routes/movies");
+app.use("/", movies);
+
+// const movie = require("./routes/movie");
+// app.use("/", movie);
 
 module.exports = app;
