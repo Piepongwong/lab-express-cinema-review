@@ -24,6 +24,7 @@ const Home = (props) => {
         <div>
           <h1>{movie.title}</h1>
           <Link to={`/film/${movie._id}`}>Go to detail</Link>
+          <Link to={`/movie/edit/${movie._id}`}>Edit this movie</Link>
         </div>
       )}
     </div>

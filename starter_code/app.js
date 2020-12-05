@@ -28,6 +28,8 @@ const app = express();
 
 // Middleware Setup
 app.use(cors());
+app.options("*", cors()); // include before other routes
+
 app.use(logger("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -40,6 +42,27 @@ app.use("/", index);
 const movies = require("./routes/movies");
 app.use("/", movies);
 
+app.post("/movie", (req, res) => {
+  console.log(req.body);
+  Movie.create(req.body)
+    .then((insertedMovie) => {
+      res.send("movie inserted");
+    })
+    .catch((err) => {
+      res.status(500).send("OOooeps");
+    });
+});
+
+app.put("/movie/:movieId", (req, res) => {
+  console.log(req.body);
+  Movie.findByIdAndUpdate(req.params.movieId, req.body)
+    .then((oldMovie) => {
+      res.send("oke");
+    })
+    .catch((err) => {
+      res.status(500).send("OOooeps");
+    });
+});
 // const movie = require("./routes/movie");
 // app.use("/", movie);
 
